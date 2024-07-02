@@ -1,0 +1,38 @@
+apiVersion: deploy.cloud.google.com/v1
+kind: DeliveryPipeline
+metadata:
+  name: gke-pipe
+  labels:
+    app: gke-pipe
+description: GKE demo pipeline
+serialPipeline:
+  stages:
+  - targetId: des
+    profiles:
+    - des
+  - targetId: prd
+    profiles:
+    - prd
+---
+  
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: des
+  annotations: {}
+  labels: {}
+description: des
+gke:
+  cluster: 'projects/smb-challenge/locations/us-central1/clusters/des'
+---
+
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: prd
+  annotations: {}
+  labels: {}
+description: prd
+requireApproval: true
+gke:
+  cluster: 'projects/smb-challenge/locations/us-central1/clusters/prd'
