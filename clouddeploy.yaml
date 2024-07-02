@@ -23,7 +23,7 @@ metadata:
   labels: {}
 description: des
 gke:
-  cluster: 'projects/smb-challenge/locations/us-central1/clusters/des'
+  cluster: 'projects/smb-challenge/locations/southamerica-east1/clusters/des'
 ---
 
 apiVersion: deploy.cloud.google.com/v1
@@ -35,4 +35,4 @@ metadata:
 description: prd
 requireApproval: true
 gke:
-  cluster: 'projects/smb-challenge/locations/us-central1/clusters/prd'
+  cluster: 'projects/smb-challenge/locations/southamerica-east1/clusters/prd'
