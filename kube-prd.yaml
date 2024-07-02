@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cicd-demo-prd
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cicd-demo-prd
+  template:
+    metadata:
+      labels:
+        app: cicd-demo-prd
+    spec:
+      containers:
+      - name: cicd-demo-prd
+        image: IMAGE_NAME
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cicd-demo-service-prd
+spec:
+  selector:
+    app: cicd-demo-prd
+  ports:
+  - protocol: TCP
+    port: 80

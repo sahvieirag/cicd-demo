@@ -1,7 +1,13 @@
 apiVersion: skaffold/v4beta7
 kind: Config
-manifests:
-  rawYaml:
-  - kubernetes.yaml
+profiles:
+- name: des
+  manifests:
+    rawYaml:
+    - kube-des.yaml
+- name: prd
+  manifests:
+    rawYaml:
+    - kube-prd.yaml
 deploy:
   kubectl: {}
