@@ -1,10 +1,10 @@
 steps:
 #Building the docker image
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'southamerica-east1-docker.pkg.dev/smb-challenge/cicd-demo2/demo-image:$SHORT_SHA', '.' ]
+  args: [ 'build', '-t', 'southamerica-east1-docker.pkg.dev/smb-challenge/cicd-demo/demo-image:$SHORT_SHA', '.' ]
 #Pushing the image to AR
 - name: 'gcr.io/cloud-builders/docker'
-  args: ["push", "southamerica-east1-docker.pkg.dev/smb-challenge/cicd-demo2/demo-image:$SHORT_SHA"]
+  args: ["push", "southamerica-east1-docker.pkg.dev/smb-challenge/cicd-demo/demo-image:$SHORT_SHA"]
 
 #Starting the cloud deploy release to deploy the manifest
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
