@@ -20,3 +20,4 @@ images:
   - southamerica-east1-docker.pkg.dev/smb-challenge/cicd-demo/demo-image:$SHORT_SHA
 options:
   logging: CLOUD_LOGGING_ONLY
+tags: ['sboot-example-001']
