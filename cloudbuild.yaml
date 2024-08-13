@@ -1,10 +1,21 @@
 steps:
 #Building the docker image
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'southamerica-east1-docker.pkg.dev/smb-challenge/cicd-demo/demo-image:$SHORT_SHA', '.' ]
+  args: [ 'build', '-t', '$LOCATION-docker.pkg.dev/$PROJECT_ID/cicd-demo/demo-image:$SHORT_SHA', '.' ]
+  id: build
+
+
+#Running the tests
+- name: $LOCATION-docker.pkg.dev/$PROJECT_ID/hello-world-python/hello-world-python
+  entrypoint: python
+  args: ["-m","pytest","unit_tests.py"]
+  id: test
+
 #Pushing the image to AR
 - name: 'gcr.io/cloud-builders/docker'
-  args: ["push", "southamerica-east1-docker.pkg.dev/smb-challenge/cicd-demo/demo-image:$SHORT_SHA"]
+  args: ["push", "$LOCATION-docker.pkg.dev/$PROJECT_ID/cicd-demo/demo-image:$SHORT_SHA"]
+  id: push
+
 
 #Starting the cloud deploy release to deploy the manifest
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -14,10 +25,10 @@ steps:
   - > 
     gcloud deploy releases create release-$SHORT_SHA
     --delivery-pipeline=gke-pipe
-    --region=southamerica-east1
-    --images=IMAGE_NAME="southamerica-east1-docker.pkg.dev/smb-challenge/cicd-demo/demo-image:${SHORT_SHA}"
+    --region=$LOCATION
+    --images=IMAGE_NAME="$LOCATION-docker.pkg.dev/$PROJECT_ID/cicd-demo/demo-image:${SHORT_SHA}"
+  id: deploy
 images:
-  - southamerica-east1-docker.pkg.dev/smb-challenge/cicd-demo/demo-image:$SHORT_SHA
+  - $LOCATION-docker.pkg.dev/$PROJECT_ID/cicd-demo/demo-image:$SHORT_SHA
 options:
   logging: CLOUD_LOGGING_ONLY
-tags: ['function-example-01', 'atacado', 'sandbox']

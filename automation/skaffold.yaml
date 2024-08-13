@@ -1,0 +1,19 @@
+apiVersion: skaffold/v4beta7
+kind: Config
+metadata:
+  name: run-automation
+profiles:
+- name: dev
+  manifests:
+    rawYaml:
+    - run-dev.yaml
+- name: uat
+  manifests:
+    rawYaml:
+    - run-uat.yaml
+- name: prd
+  manifests:
+    rawYaml:
+    - run-prd.yaml
+deploy:
+  cloudrun: {}
